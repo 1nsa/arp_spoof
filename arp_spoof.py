@@ -29,6 +29,7 @@ def restore(source_ip, destination_ip):
 target = "192.168.0.15"
 gateway = "192.168.0.1"
 
+
 packets_sent_counter = 0
 try:
     while True:
