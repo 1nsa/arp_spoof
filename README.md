@@ -1,4 +1,4 @@
-# arp_spoof
+# ARP Spoof
 
 perform man in the middle attack using arp spoofing
 
